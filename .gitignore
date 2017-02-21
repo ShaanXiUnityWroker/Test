@@ -1,0 +1,11 @@
+# Ignore Folders
+Build
+Library
+Temp
+obj
+.vs
+
+# Ignore solution files
+*.sln
+*.csproj
+*.apk
