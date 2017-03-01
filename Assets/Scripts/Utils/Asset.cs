@@ -30,7 +30,7 @@ namespace Utils
         /// <summary>
         /// Standard constructor
         /// </summary>
-        public Asset()
+        internal Asset()
         {
 
         }

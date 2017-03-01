@@ -44,7 +44,7 @@ namespace Utils
             // System.IO.File.Delete("/private" + Application.persistentDataPath + "/" + filename);
             assetPath =
 #if UNITY_EDITOR
-                "Build/Downloaded/";
+                Application.dataPath + "/../Build/Downloaded/";
 #else
                 Application.persistentDataPath + "/";
 #endif
@@ -56,21 +56,44 @@ namespace Utils
 
         public IEnumerator LoadAsset(string url, LoadCompleteCallback callback)
         {
-            var asyncLoad = AssetBundle.LoadFromFileAsync(mLocalAssets[url].path);
+            if (mLoadedAssets.ContainsKey(url)) {
+                callback(mLoadedAssets[url]);
+                yield break;
+            }
+
+            // Load dependencies if exists
+            AssetBundleCreateRequest asyncLoad = null;
+            AssetHeader header = mLocalAssets[url];
+            if (header.dependencies != null && header.dependencies.Length > 0) {
+                foreach (var depUrl in header.dependencies) {
+                    if (!mLoadedAssets.ContainsKey(depUrl)) {
+                        asyncLoad = AssetBundle.LoadFromFileAsync(GetFullPath(depUrl));
+                        yield return asyncLoad;
+                        mLoadedAssets.Add(depUrl, new Asset(mLocalAssets[depUrl], asyncLoad.assetBundle));
+                    }
+                }
+            }
+
+            // Load main asset bundle
+            asyncLoad = AssetBundle.LoadFromFileAsync(GetFullPath(url));
+            Asset asset = new Asset(mLocalAssets[url], asyncLoad.assetBundle);
+            mLoadedAssets.Add(url, asset);
             yield return asyncLoad;
 
             if (callback != null) {
-                Asset asset = new Asset(mLocalAssets[url], asyncLoad.assetBundle);
-                mLoadedAssets.Add(url, asset);
                 callback(asset);
             }
         }
 
         public IEnumerator DownloadAsset(string url, LoadCompleteCallback callback)
         {
-            Asset asset = new Asset();
-
+            if (mLoadedAssets.ContainsKey(url)) {
+                callback(mLoadedAssets[url]);
+                yield break;
+            }
+            
             // Download header
+            Asset asset = new Asset();
             yield return StartCoroutine(DownloadAssetHeader(url, asset));
             if (asset.header == null) {
                 callback(null);
