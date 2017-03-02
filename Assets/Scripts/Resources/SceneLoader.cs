@@ -35,8 +35,8 @@ namespace Assets.Scripts.Resources
         /// <summary>
         /// Const data Members
         /// </summary>
-        public const string ASSET_SERVER        = "http://127.0.0.1/";
-        public const string URL_LATEST_PATCH    = ASSET_SERVER + "latest.patch";
+        public const string ASSET_SERVER        = "http://192.168.1.10/";
+        public const string URL_LATEST_PATCH    = ASSET_SERVER + "latest.patch.json";
         public const string URL_CONTENT_VERSION = ASSET_SERVER + "content_version.txt";
 
         const string KEY_ASSET_VERSION = "ASSET_VERSION";
@@ -108,10 +108,11 @@ namespace Assets.Scripts.Resources
                         latestContentVersion = float.Parse(www.text);
                     } catch (System.Exception e) {
                         latestContentVersion = 0;
-                        Debug.LogError("Get version number failed : " + e.Message);
+                        Debug.LogError("Convert version number failed : " + e.Message);
                     }
                 } else {
                     latestContentVersion = 0;
+                    Debug.LogError("Get version number failed : " + www.error);
                 }
             }
         }
@@ -146,12 +147,13 @@ namespace Assets.Scripts.Resources
 
         IEnumerator DownloadPatchProfile(string url)
         {
-            using (WWW patchDownloader = new WWW(url)) {
-                yield return patchDownloader;
-                if (string.IsNullOrEmpty(patchDownloader.error)) {
-                    mDownloadedPatchProfile = JsonUtility.FromJson<PatchProfile>(patchDownloader.text);
+            using (WWW www = new WWW(url)) {
+                yield return www;
+                if (string.IsNullOrEmpty(www.error)) {
+                    mDownloadedPatchProfile = JsonUtility.FromJson<PatchProfile>(www.text);
                 } else {
                     mDownloadedPatchProfile = null;
+                    Debug.LogError("Download patch profile failed : " + www.error);
                 }
             }
         }
@@ -162,6 +164,8 @@ namespace Assets.Scripts.Resources
                 yield return www;
                 if (string.IsNullOrEmpty(www.error)) {
                     AssetManager.Save(url, www.bytes);
+                } else {
+                    Debug.LogError("Download scene profile failed : " + www.error);
                 }
             }
         }

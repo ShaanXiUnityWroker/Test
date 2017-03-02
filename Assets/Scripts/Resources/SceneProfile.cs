@@ -9,7 +9,7 @@ namespace Assets.Scripts.Resources
     public class SceneProfile
     {
         public const string PATH    = "";
-        public const string SUFFIX  = "sceneprofile";
+        public const string SUFFIX  = "sceneprofile.json";
         public const string PATTERN = "*." + SUFFIX;
 
         public float         version;

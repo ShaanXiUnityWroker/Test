@@ -299,6 +299,11 @@ namespace Utils
 
         IEnumerator DownloadAssetHeader(string url, Asset asset)
         {
+            if (mLocalAssets.ContainsKey(url)) {
+                asset.header = mLocalAssets[url];
+                yield break;
+            }
+
             using (WWW www = new WWW(url + AssetHeader.SUFFIX)) {
                 yield return www;
                 if (string.IsNullOrEmpty(www.error)) {

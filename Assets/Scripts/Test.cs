@@ -32,13 +32,13 @@ namespace Assets.Scripts
         IEnumerator Start()
         {
             // Load cube with dependencies
-            // yield return StartCoroutine(AssetManager.instance.DownloadAsset("http://127.0.0.1/Builds/Android/test/prefabs/cube", LoadAndInstantiate));
+            // yield return StartCoroutine(AssetManager.instance.DownloadAsset("http://192.168.1.10/Builds/Android/test/prefabs/cube", LoadAndInstantiate));
 
             while (SceneLoader.instance.state != SceneLoader.State.Ready) {
                 yield return null;
             }
             print("Start to load scene");
-            SceneLoader.instance.LoadSceneAsync("http://127.0.0.1/test.sceneprofile", LoadSceneComplete);
+            SceneLoader.instance.LoadSceneAsync("http://192.168.1.10/test.sceneprofile.json", LoadSceneComplete);
         }
 
 
