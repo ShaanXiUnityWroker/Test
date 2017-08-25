@@ -1,18 +1,18 @@
 {
   "version": 0,
-  "url": "http://192.168.190.15/test.sceneprofile.json",
+  "url": "http://192.168.159.200/test.sceneprofile.json",
   "assetHeaders": [
     {
       "size": 0,
       "version": 0,
-      "url": "http://192.168.190.15/Build/Android/test/prefabs/cube",
+      "url": "http://192.168.159.200/Build/Android/test/prefabs/cube",
       "path": "",
       "dependencies": []
     },
     {
       "size": 0,
       "version": 0,
-      "url": "http://192.168.190.15/Build/Android/test/prefabs/sphere",
+      "url": "http://192.168.159.200/Build/Android/test/prefabs/sphere",
       "path": "",
       "dependencies": []
     }

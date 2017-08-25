@@ -35,7 +35,7 @@ namespace Assets.Scripts.Resources
         /// <summary>
         /// Const data Members
         /// </summary>
-        public const string ASSET_SERVER        = "http://192.168.190.15/";
+        public const string ASSET_SERVER        = "http://192.168.159.200/";
         public const string URL_LATEST_PATCH    = ASSET_SERVER + "latest.patch.json";
         public const string URL_CONTENT_VERSION = ASSET_SERVER + "content_version.txt";
 
