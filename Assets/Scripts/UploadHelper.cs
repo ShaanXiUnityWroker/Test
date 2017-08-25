@@ -8,9 +8,8 @@ using UnityEngine;
 public class UploadHelper
 {
 
-    public static void CallUploadProcess(string arguments)
+    public static void CallUploadProcess(string arguments , string winScpPath)
     {
-        string winScpPath = "D:/WinSCP/WinSCP.exe";
 
         try
         {
