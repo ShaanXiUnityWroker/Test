@@ -44,7 +44,7 @@ namespace Utils
             // System.IO.File.Delete("/private" + Application.persistentDataPath + "/" + filename);
             assetPath =
 #if UNITY_EDITOR
-                Application.dataPath + "/../Build/Downloaded/";
+                Application.dataPath + "/../Downloaded/";
 #else
                 Application.persistentDataPath + "/";
 #endif

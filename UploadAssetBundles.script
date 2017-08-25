@@ -1,0 +1,14 @@
+option echo off
+option batch on
+option confirm off
+ 
+open scp://"%1%":"%2%"@"%3%"
+ 
+option transfer binary
+synchronize remote -mirror -delete %4% %5%
+ 
+chmod 755 %5%/*
+ 
+close
+ 
+exit

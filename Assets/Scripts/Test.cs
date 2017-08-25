@@ -38,7 +38,7 @@ namespace Assets.Scripts
                 yield return null;
             }
             print("Start to load scene");
-            SceneLoader.instance.LoadSceneAsync("http://192.168.1.10/test.sceneprofile.json", LoadSceneComplete);
+            SceneLoader.instance.LoadSceneAsync(SceneLoader.ASSET_SERVER + "test.sceneprofile.json", LoadSceneComplete);
         }
 
 

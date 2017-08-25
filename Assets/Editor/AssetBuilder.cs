@@ -10,8 +10,8 @@ namespace Kamikami.EditorTools
     public class AssetBuilder
     {
         const string OUTPUT_PATH    = "Build/";
-        const string PATH_4_IOS     = OUTPUT_PATH + "Android/";
-        const string PATH_4_ANDROID = OUTPUT_PATH + "iOS/";
+        const string PATH_4_IOS     = OUTPUT_PATH + "iOS/";
+        const string PATH_4_ANDROID = OUTPUT_PATH + "Android/";
 
         [MenuItem("Assets/Build All Asset Bundles")]
         static void BuildAll()
